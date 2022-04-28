@@ -1,0 +1,34 @@
+---
+- name: Testing Jenkins
+  hosts: test
+  gather_facts: smart
+  become: true
+  tasks:
+    - name: stop service
+      service:
+        name: { item }
+        state: stopped
+        loop: 
+          - httpd
+          - vsftpd
+    - name: remove packages
+      yum:
+        name: { item }
+        state: absent
+        loop: 
+          - httpd
+          - vsftpd
+    - name: install packages
+      yum:
+        name: { item }
+        state: present
+        loop: 
+          - httpd
+          - vsftpd 
+    - name: start service
+      service:
+        name: { item }
+        state: started
+        loop:
+          - httpd
+          - vsftpd  
