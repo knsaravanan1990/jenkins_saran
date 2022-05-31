@@ -1,4 +1,4 @@
-for i in 'python':
+for i in 'pythons':
   print(i)
   if i=='t':
      continue
